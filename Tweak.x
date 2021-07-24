@@ -1,4 +1,8 @@
-#import "Header.h"
+#import "../YouTubeHeader/YTIGuideResponse.h"
+#import "../YouTubeHeader/YTIGuideResponseSupportedRenderers.h"
+#import "../YouTubeHeader/YTIPivotBarSupportedRenderers.h"
+#import "../YouTubeHeader/YTIPivotBarRenderer.h"
+#import "../YouTubeHeader/YTIBrowseRequest.h"
 
 %hook YTGuideServiceCoordinator
 
@@ -7,15 +11,15 @@
     for (YTIGuideResponseSupportedRenderers *guideRenderers in renderers) {
         YTIPivotBarRenderer *pivotBarRenderer = [guideRenderers pivotBarRenderer];
         NSMutableArray <YTIPivotBarSupportedRenderers *> *items = [pivotBarRenderer itemsArray];
-        NSIndexSet *shortIndex = [items indexesOfObjectsPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
+        NSUInteger shortIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
             return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:@"FEshorts"];
         }];
-        if (shortIndex.count) {
-            [items removeObjectsAtIndexes:shortIndex];
-            NSIndexSet *exploreIndex = [items indexesOfObjectsPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
+        if (shortIndex != NSNotFound) {
+            [items removeObjectAtIndex:shortIndex];
+            NSUInteger exploreIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
                 return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:[%c(YTIBrowseRequest) browseIDForExploreTab]];
             }];
-            if (exploreIndex.count == 0) {
+            if (exploreIndex == NSNotFound) {
                 YTIPivotBarSupportedRenderers *exploreTab = [%c(YTIPivotBarRenderer) pivotSupportedRenderersWithBrowseId:[%c(YTIBrowseRequest) browseIDForExploreTab] title:@"Explore" iconType:292];
                 [items insertObject:exploreTab atIndex:1];
             }
