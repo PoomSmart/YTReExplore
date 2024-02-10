@@ -1,8 +1,8 @@
-#import "../YouTubeHeader/YTIGuideResponse.h"
-#import "../YouTubeHeader/YTIGuideResponseSupportedRenderers.h"
-#import "../YouTubeHeader/YTIPivotBarSupportedRenderers.h"
-#import "../YouTubeHeader/YTIPivotBarRenderer.h"
-#import "../YouTubeHeader/YTIBrowseRequest.h"
+#import <YouTubeHeader/YTIGuideResponse.h>
+#import <YouTubeHeader/YTIGuideResponseSupportedRenderers.h>
+#import <YouTubeHeader/YTIPivotBarSupportedRenderers.h>
+#import <YouTubeHeader/YTIPivotBarRenderer.h>
+#import <YouTubeHeader/YTIBrowseRequest.h>
 
 static void replaceTab(YTIGuideResponse *response) {
     NSMutableArray <YTIGuideResponseSupportedRenderers *> *renderers = [response itemsArray];
