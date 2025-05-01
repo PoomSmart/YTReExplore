@@ -47,3 +47,17 @@ static void replaceTab(YTIGuideResponse *response) {
 }
 
 %end
+
+%hook YTGuideServiceCoordinatorImpl
+
+- (void)handleResponse:(YTIGuideResponse *)response error:(id)error completion:(id)completion {
+    replaceTab(response);
+    %orig;
+}
+
+- (void)handleLegacyResponse:(YTIGuideResponse *)response error:(id)error completion:(id)completion {
+    replaceTab(response);
+    %orig;
+}
+
+%end

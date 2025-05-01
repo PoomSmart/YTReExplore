@@ -1,8 +1,8 @@
 Package: com.ps.ytreexplore
 Name: YTReExplore
-Version: 1.0.0
+Version: 1.0.4
 Architecture: iphoneos-arm
-Description: Remove Shorts tab and replace with Explore tab in YouTube app.
+Description: Removes Shorts tab and replaces with Explore tab in YouTube app.
 Maintainer: PoomSmart
 Author: PoomSmart
 Section: Tweaks
